@@ -11,7 +11,9 @@ switch ($method | $uri) {
     * Task: show all the users
     */
     case ($method == 'GET' && $uri == '/projet-test-LM/src/api/users'):
-        echo $uri;
+        $sql = "SELECT * FROM `utilisateurs-LM`";
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->query($sql);
+        echo json_encode($pdoStatement->fetchAll());
         break;
     /*
     * Path: GET /api/users/{id}
