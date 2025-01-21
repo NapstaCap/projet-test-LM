@@ -53,35 +53,4 @@ form input[type="submit"]:hover {
     background-color: #008C3A;
 }
 
-/* Styles du tableau */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(110, 29, 123, 0.1);
-    overflow: hidden;
-}
-
-table th, table td {
-    padding: 14px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-table th {
-    color: white;
-    font-size: 1.1em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-table tr:nth-child(even) {
-    background-color: #F9F9F9;
-}
-
-table tr:hover {
-    background-color: rgba(110, 29, 123, 0.05);
-}
 
