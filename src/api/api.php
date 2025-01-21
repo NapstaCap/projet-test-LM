@@ -20,6 +20,11 @@ switch ($method | $uri) {
     * Task: get one user
     */
     case ($method == 'GET' && preg_match('/\/api\/users\/[1-9]/', $uri)):
+        $id = explode('/', $uri)[5];
+        $sql = "SELECT * FROM `utilisateurs-LM` WHERE id = :idTag";
+        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
+        $pdoStatement->execute(['idTag' => $id]);
+        echo json_encode($pdoStatement->fetch());
         break;
     /*
     * Path: POST /api/users

@@ -3,13 +3,25 @@
 <?php
 
 require_once "api/cURL.php";
-function getClients(){
-    $url = "http://localhost/projet-test-LM/src/api/users";
-    $response = appel_curl($url);
+
+function getTokenAPI() {
+    $url = "https://evaluation-technique.lundimatin.biz/api/auth";
+    $response = appel_cURLPOSTAUTH($url);
+
+    return json_decode($response, true);
+}
+function getClients($token){
+    $url = "https://evaluation-technique.lundimatin.biz/api/clients";
+    $response = appel_cURLGET($url, $token);
 
   return json_decode($response, true);
 }
-$clients = getClients()?>
+
+$token = getTokenAPI()['datas']['token'];
+$token = explode("-", $token)[1];
+echo $token;
+
+$clients = getClients($token)?>
 <head>
     <meta charset="UTF-8">
     <title>Recherche d'un contact</title>
@@ -24,7 +36,7 @@ $clients = getClients()?>
     </nav>
 </header>
 <body>
-<h1>Recherche d'un contact</h1>
+<h1>Recherche d'une fiche de contact</h1>
 <form>
     <label for="search">Renseigner un nom ou une dénomination</label>
     <input type="text" placeholder="Nom ou dénomination" name="search" id="search">
@@ -44,11 +56,11 @@ $clients = getClients()?>
         <?php foreach($clients as $client) {
             echo "<tr><td>".$client['nom']."</td>";
             echo "<td>".$client['adresse']."</td>";
-            echo "<td>".$client['ville']."</td>";
-            echo "<td>".$client['telephone']."</td></tr>";
+            echo "<td>". $client['code_postal'] . " " . $client['ville'] ."</td>";
+            echo "<td>".$client['tel']."</td>";
+            echo '<td><a href="views/utilisateur.php?id='. $client['id'].'"><button class="btn" type="button">Voir</button></a></td></tr>';
         } ?>
     </tbody>
 </table>
-
 </body>
 </html>
