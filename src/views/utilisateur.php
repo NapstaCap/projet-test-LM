@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
 <?php
-require_once "../api/cURL.php";
-function getOneClient()
-{
-    $idClient = $_GET['id'];
-    $url = "http://localhost/projet-test-LM/src/api/users/$idClient";
-    $response = appel_cURLGET($url, $token);
+require_once "../api/api.php";
 
-    return json_decode($response, true);
-}
-
-$client = getOneClient();
+$token = getTokenAPI()['datas']['token'];
+$client = getOneClient($token);
 ?>
 <head>
     <meta charset="UTF-8">
     <title>Informations</title>
     <link rel="stylesheet" href="../css/navStyles.css">
     <link rel="stylesheet" href="../css/styles.css">
-    <script defer src="../js/scripts.js"></script>
 </head>
 <header>
     <nav>
@@ -28,28 +20,26 @@ $client = getOneClient();
     </nav>
 </header>
 <body>
-<h1><?= $client['nom'] ?>
-    <a href="editer.php">
-        <button id="btn_editer" class="btn" type="button">Editer</button>
-    </a>
+<h1><?= $client['datas']['nom'] ?>
+    <a href="editer.php?id=<?= $client['datas']['id']?>"><button id="btn_editer" class="btn" type="button">Editer</button></a>
 </h1>
 <form id="formInfo">
     <legend>Informations</legend>
         <p>
             <label>Prénom & NOM</label>
-            <label> <?= $client['nom']?> </label>
+            <label> <?= $client['datas']['nom']?> </label>
         </p>
         <p>
             <label>Téléphone</label>
-            <label> <?= $client['telephone']?> </label>
+            <label> <?= $client['datas']['tel']?> </label>
         </p>
         <p>
             <label>Email</label>
-            <label> <?= $client['email']?> </label>
+            <label> <?= $client['datas']['email']?> </label>
         </p>
         <p>
             <label>Adresse</label>
-            <label> <?= $client['adresse']?> </label>
+            <label> <?= $client['datas']['adresse']?> <?= $client['datas']['code_postal']?> <?= $client['datas']['ville']?></label>
         </p>
 </form>
 </body>

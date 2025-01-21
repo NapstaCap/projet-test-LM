@@ -2,26 +2,12 @@
 <html lang="fr">
 <?php
 
-require_once "api/cURL.php";
-
-function getTokenAPI() {
-    $url = "https://evaluation-technique.lundimatin.biz/api/auth";
-    $response = appel_cURLPOSTAUTH($url);
-
-    return json_decode($response, true);
-}
-function getClients($token){
-    $url = "https://evaluation-technique.lundimatin.biz/api/clients";
-    $response = appel_cURLGET($url, $token);
-
-  return json_decode($response, true);
-}
+require_once "api/api.php";
 
 $token = getTokenAPI()['datas']['token'];
-$token = explode("-", $token)[1];
-echo $token;
-
-$clients = getClients($token)?>
+$clients = getClients($token);
+$tabClients = getTabClients($clients['datas'], $token);
+?>
 <head>
     <meta charset="UTF-8">
     <title>Recherche d'un contact</title>
@@ -53,12 +39,13 @@ $clients = getClients($token)?>
     </tr>
     </thead>
     <tbody>
-        <?php foreach($clients as $client) {
-            echo "<tr><td>".$client['nom']."</td>";
-            echo "<td>".$client['adresse']."</td>";
-            echo "<td>". $client['code_postal'] . " " . $client['ville'] ."</td>";
-            echo "<td>".$client['tel']."</td>";
-            echo '<td><a href="views/utilisateur.php?id='. $client['id'].'"><button class="btn" type="button">Voir</button></a></td></tr>';
+        <?php
+        foreach($tabClients as $client) {
+            echo "<tr><td>".$client['datas']['nom']."</td>";
+            echo "<td>".$client['datas']['adresse']."</td>";
+            echo "<td>". $client['datas']['code_postal'] . " " . $client['datas']['ville'] ."</td>";
+            echo "<td>".$client['datas']['tel']."</td>";
+            echo '<td><a href="views/utilisateur.php?id='. rawurlencode($client['datas']['id']).'"><button class="btn" type="button">Voir</button></a></td></tr>';
         } ?>
     </tbody>
 </table>

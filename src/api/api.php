@@ -1,55 +1,47 @@
 <?php
 
-require_once "../Modele/ConnexionBaseDeDonnees.php";
+require_once "cURL.php";
 
-$uri = $_SERVER['REQUEST_URI'];
-$method = $_SERVER['REQUEST_METHOD'];
+$token = getTokenAPI()['datas']['token'];
+function getTokenAPI() {
+    $url = "https://evaluation-technique.lundimatin.biz/api/auth";
+    $response = appel_cURLPOSTAUTH($url);
 
-switch ($method | $uri) {
-    /*
-    * Path: GET /api/users
-    * Task: show all the users
-    */
-    case ($method == 'GET' && $uri == '/projet-test-LM/src/api/users'):
-        $sql = "SELECT * FROM `utilisateurs-LM`";
-        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->query($sql);
-        echo json_encode($pdoStatement->fetchAll());
-        break;
-    /*
-    * Path: GET /api/users/{id}
-    * Task: get one user
-    */
-    case ($method == 'GET' && preg_match('/\/api\/users\/[1-9]/', $uri)):
-        $id = explode('/', $uri)[5];
-        $sql = "SELECT * FROM `utilisateurs-LM` WHERE id = :idTag";
-        $pdoStatement = ConnexionBaseDeDonnees::getPdo()->prepare($sql);
-        $pdoStatement->execute(['idTag' => $id]);
-        echo json_encode($pdoStatement->fetch());
-        break;
-    /*
-    * Path: POST /api/users
-    * Task: store one user
-    */
-    case ($method == 'POST' && $uri == '/projet-test-LM/src/api/users'):
-        break;
-    /*
-    * Path: PUT /api/users/{id}
-    * Task: update one user
-    */
-    case ($method == 'PUT' && preg_match('/\/api\/users\/[1-9]/', $uri)):
-        break;
-    /*
-    * Path: DELETE /api/users/{id}
-    * Task: delete one user
-    */
-    case ($method == 'DELETE' && preg_match('/\/api\/users\/[1-9]/', $uri)):
+    return json_decode($response, true);
+}
 
-        break;
-    /*
-    * Path: ?
-    * Task: this path doesn't match any of the defined paths
-    *      throw an error
-    */
-    default:
-        break;
+function getClients(string $token){
+    $url = "https://evaluation-technique.lundimatin.biz/api/clients";
+    $response = appel_cURLGET($url, $token);
+    
+    return json_decode($response, true);
+}
+
+function getTabClients(array $datas, string $token) {
+    $tabClients = array();
+    foreach ($datas as $data) {
+        $id = $data['id'];
+        $url = "https://evaluation-technique.lundimatin.biz/api/clients/$id";
+        $response = appel_cURLGET($url, $token);
+        $tabClients[] = json_decode($response, true);
+    }
+    return $tabClients;
+}
+
+function getOneClient(string $token)
+{
+    $idClient = $_GET['id'];
+    $url = "https://evaluation-technique.lundimatin.biz/api/clients/$idClient";
+    $response = appel_cURLGET($url, $token);
+
+    return json_decode($response, true);
+}
+
+function modifClient(string $token, array $data)
+{
+    $idClient = $_GET['id'];
+    $url = "https://evaluation-technique.lundimatin.biz/api/clients/$idClient";
+    $response = appel_cURLPOST($url, $token, $data);
+
+    return json_decode($response, true);
 }

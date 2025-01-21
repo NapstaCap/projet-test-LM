@@ -7,11 +7,10 @@ function appel_cURLGET($url, $token)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER, [
         'Accept: application/api.rest-v1+json',
-        'Authorization: '. $token
     ]);
+    curl_setopt($curl, CURLOPT_USERPWD, "'':$token");
     $response = curl_exec($curl);
     curl_close($curl);
-    echo $response;
     return $response;
 }
 
@@ -39,6 +38,35 @@ function appel_cURLPOSTAUTH($url)
 
     return $result;
 }
+
+function appel_cURLPOST($url, $token, $data)
+{
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        'Accept: application/api.rest-v1+json',
+        'Content-Type: application/json'
+    ]);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
+        'nom' => $data['nom'],
+        'email' => $data['email'],
+        'tel' => $data['tel'],
+        'adresse' => $data['adresse'],
+        'code_postal' => $data['code_postal'],
+        'ville' => $data['ville']
+    ]));
+    curl_setopt($curl, CURLOPT_USERPWD, "'':$token");
+
+    $result = curl_exec($curl);
+    curl_close($curl);
+
+    return $result;
+}
+
+
 
 // CURL PUT : curl_setopt($ch, CURLOPT_HTTPHEADER, [
 //        'Accept: application/api.rest-v1+json',
