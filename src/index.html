@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Recherche d'un contact</title>
+    <link rel="stylesheet" href="css/navStyles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Rechercher un contact</a></li>
+        </ul>
+    </nav>
+</header>
 <body>
     <h1>Recherche d'un contact</h1>
     <form action="search.php" method="get">
-        <label for="search">Rechercher un contact</label>
-        <input type="text" name="search" id="search">
-        <button type="submit">Rechercher</button>
+        <label for="search">Renseigner un nom ou une dénomination</label>
+        <input type="text" placeholder="Nom ou dénomination" name="search" id="search">
+        <button class="btn" type="submit">Rechercher</button>
     </form>
 
 </body>

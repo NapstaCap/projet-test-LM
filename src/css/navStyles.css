@@ -1,0 +1,212 @@
+/* Couleurs principales */
+:root {
+    --primary-color:  #4169E1; /* Bleu clair */
+    --secondary-color: #00A455; /* Vert */
+    --accent-color: #FFC107; /* Jaune */
+    --background-color: #F5F5F5; /* Gris clair */
+    --text-color: #333333; /* Gris foncé */
+}
+
+/* Police et styles généraux */
+body {
+    font-family: 'Nunito', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* En-tête */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+header a {
+    margin: 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+/* Contenu principal */
+main {
+    padding: 40px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(110, 29, 123, 0.1);
+    border-radius: 10px;
+}
+
+/* Boutons */
+.btn {
+    color: white;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tableaux */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    box-shadow: 0 2px 6px rgba(110, 29, 123, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th {
+    color: white;
+    padding: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1em;
+}
+
+table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+table tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+table tr:hover {
+    background-color: rgba(110, 29, 123, 0.05);
+}
+
+/* Formulaires */
+form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(110, 29, 123, 0.1);
+}
+
+form input[type="text"],
+form input[type="submit"],
+form select {
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+
+form input[type="submit"] {
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+form input[type="submit"]:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Pied de page */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    nav ul li {
+        margin: 0 10px;
+    }
+
+    nav ul li a {
+        font-size: 1em;
+    }
+
+    main {
+        padding: 30px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
