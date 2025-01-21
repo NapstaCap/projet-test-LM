@@ -39,10 +39,10 @@ function appel_cURLPOSTAUTH($url)
     return $result;
 }
 
-function appel_cURLPOST($url, $token, $data)
+function appel_cURLPOST($url, $token)
 {
     $curl = curl_init();
-
+    $donneesJS = file_get_contents("php://input");
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_POST, 1);
@@ -50,14 +50,7 @@ function appel_cURLPOST($url, $token, $data)
         'Accept: application/api.rest-v1+json',
         'Content-Type: application/json'
     ]);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
-        'nom' => $data['nom'],
-        'email' => $data['email'],
-        'tel' => $data['tel'],
-        'adresse' => $data['adresse'],
-        'code_postal' => $data['code_postal'],
-        'ville' => $data['ville']
-    ]));
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($donneesJS));
     curl_setopt($curl, CURLOPT_USERPWD, "'':$token");
 
     $result = curl_exec($curl);

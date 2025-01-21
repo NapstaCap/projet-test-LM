@@ -5,12 +5,14 @@ require_once "../api/api.php";
 
 $token = getTokenAPI()['datas']['token'];
 $client = getOneClient($token);
+
 ?>
 <head>
     <meta charset="UTF-8">
     <title>Informations</title>
     <link rel="stylesheet" href="../css/navStyles.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <script defer src="../js/scriptEdit.js"></script>
 </head>
 <header>
     <nav>

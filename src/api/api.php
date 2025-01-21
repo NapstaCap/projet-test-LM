@@ -39,7 +39,12 @@ function getOneClient(string $token)
 
 function modifClient(string $token, array $data)
 {
-    $idClient = $_GET['id'];
+    $data['nom'] = $_POST['nom'];
+    $data['email'] = $_POST['email'];
+    $data['tel'] = $_POST['tel'];
+    $data['adresse'] = $_POST['adresse'];
+    $data['code_postal'] = $_POST['code_postal'];
+    $data['ville'] = $_POST['ville'];
     $url = "https://evaluation-technique.lundimatin.biz/api/clients/$idClient";
     $response = appel_cURLPOST($url, $token, $data);
 
